@@ -1,0 +1,57 @@
+Instructions
+
+ There are several input "modes" in this game.  How your keypresses
+ are interpreted depends on what mode you are in. 
+ 
+ When you start the game (after logging in), you will be in MOVE mode,
+ which is also the main, or root mode.  At any time pressing escape
+ will bring you back to MOVE mode.
+ 
+ Here are a list of modes in the game
+  Mode    Key     Description
+  -----   ------- ---------
+  LOGIN           Initial game Startup
+  MOVE    escape  main
+  TELL    t       when you are sending a message, entering username or message body
+  GET     g       picking up an object
+  ATTACK  a       attacking 
+  FREE    f       Allows assigning of free attributes (to improve character)
+  USE     u       Use an object
+
+ There are also keys that effect the display area.  These are the available pop-up windows
+  Window    Key Description
+  --------- --- ------------
+  Equipment e   Shows and allows editing of equipped inventory
+  Stats     s   Shows player statistics
+  Text      d   full screen text display
+  
+
+LOGIN
+ All keypresses are used for logging in, entering username or password, (or answering 
+ questions).
+
+MOVE 
+ Main mode.  You can enter most other modes from this one.  Press escape to get back to
+ this mode.
+ - Arrow Keys : move character in the appropriate direction
+ - t : enters TELL mode
+ - g : enters GET mode
+ - a : enters ATTACK mode
+
+TELL
+ Sending a message to another player.  When you enter this mode you are prompted for the
+ name of a player to send the message to.  Enter the user's name and press enter.  Then 
+ enter the message body and press enter.    When the message is delivered you should see
+ a confirmation.
+ 
+GET
+ Picking up objects from the map.
+ - Arrow Keys : get object in the direction specified.
+ - G : pressing G again gets the object you are standing on
+ - Mouse Click : Clicking on an object will attempt to get that object
+ 
+ATTACK
+ Attacking a creature. 
+ - Arrow Keys: Attack in the direction shown (One space away from the player).
+ - Mouse Click : Attempt to attack the creature at the location clicked. 
+ 

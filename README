@@ -1,0 +1,21 @@
+NetWorld
+========
+
+This is an online role-playing game, runnign with a java server
+and an applet for the client-side UI.  
+
+This is my first project in java, written in 2001. 
+
+The game is sprite-based and has a drag-and-drop inventory, a 
+way to talk to other players and mobs.  It also has a decent AI
+system for programmable creatures.  It handles spells and effects
+on objects, and has a lot of variety in damage and defense, which 
+makes it a little more interesting to both attack and defend oneself
+(slash, bludgeon, pierce, fire, ice, magic). 
+
+In /documentation there is help on using the UI, and config for AI 
+and spells.  
+
+TODO : 
+ A map editor would make creating the world a lot easier. 
+ 

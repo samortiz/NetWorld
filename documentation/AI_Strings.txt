@@ -1,0 +1,151 @@
+AI String Construction
+
+The format is "ai=AI" where
+AI: Rule()...()Rule
+Rule: Command~Command~...~Command
+Condition: word word... word
+
+How it works:
+ When the ai is called, it checks the conditions of each rule. 
+ Each command is validated and if any command is false then the rule
+ is ignored and the next rule is checked.   If all the commands are 
+ valid, then the actions in the rule are carried out.   Only one system
+ action may be performed for each rule, (the last system action) but any
+ number of internal actions may be performed. 
+
+If the first word of a command starts with "if" then it is a condition,
+otherwise it is an action. 
+
+ The first word of each command is a type.  
+ There are fixed types that are allowed, and a fixed syntax for each type.
+ 
+Condition Types:
+ iftarget var op val ... var op val
+   Most common condition, if all the following var op val groups are
+   valid then this condition returns a target.
+ ifmy var op val ... var op val
+   Does not return a target, and will not work with an var or val that require
+   target information. This is for self variables.  Used for doing actions when
+   no targets are visible. 
+
+Action Types:   
+ attack
+   Attacks the target chosen.  If no target is specified, then the attack will fail.
+ move dir
+   if dir is "towards" or "away" then the keyword "target" is required at the end.
+   dir can also be one of (random, up, down, left, right), in which case target may
+   not be present (no target will be used)
+ spell spellname (not implemented)
+ tell message (not implemented)
+ var0..99 [set|add|sub] val
+   This is used to change the variables associated with a particular target 
+   the conditions must have returned a target.  There are a max of 100 possible
+   variables that can be set for each target. 
+ mystate0..99 [set|add|sub] val
+   This is used to change the state of the creature.  This is global and does not
+   require a target.  Val cannot be a target specific value (it has to start with my).
+
+Op types :
+ Operators work mostly with numbers, with the exception of =, !=, contains and notcontains
+ which will work with strings. 
+ > : greater than
+ < : less than
+ >= : greater than or equal to
+ <= : less than or equal to
+ = : equal to 
+ != : not equal to 
+ contains : returns true if the string on the right is contained in the string on the left
+ notcontains : returns true if the string on the right is not contained in the string on the left
+ 
+
+Allowed Vars and Values.
+Vars and values are really the same thing.  The difference is only in the position 
+in the command.
+
+Global (my) Variables:
+ myx : creature's global x position
+ myy : creature's global y position
+ myinrange : range of longest ranged weapon equipped
+ myallinrange : range of shortest ranged weapon equipped
+ myhp : hitpoints
+ myhpmax : Max hitpoints
+ myhppct : Percent of max hitpoints
+ mysp : spell Points
+ myspmax : Max spellPoints
+ mysppct : Percent of max spellpoints
+ mymovedelay : how long until character can move again. 
+ myattackdelay : how long until char can attack
+ myspelldelay : how long until char can cast a spell
+ myclan : clan name of creature
+ myusername : User Name of creature
+ mystate0..99  : the state variables
+ random : a random number in the range [0,1)
+ 
+Target Specific Variables
+ distance : distance of target from me
+ clan : clan name of target
+ attackedcount : # times target has attacked me
+ totalattackedcount : # times target has attacked me or my clan
+ clanattackedcount : # times target attacked my clan
+ attackeddmg : total damage done to me by the target
+ totalattackeddmg : total damage done to me or my clan by the target
+ clanattackeddmg : total damage done to my clan by the target
+ x : global x position of target
+ y : global y position of target 
+ hppct : Percent of total hitpoints for target
+ sppct : Percent of total spellPoints for target
+ username : name of target
+ var0..99 : all the AI defined variables for this target
+ sortby [max|min] var : if the iftarget command returns multiple targets, this will determine how a single target is chosen
+ tell : a message this target has sent me usually used with contains or notcontains
+
+Examples of AI's:
+
+eg 1) 
+  This AI will move toward any enemy it sees and when it is in
+  range it will stop moving and attack it.   An enemy is anyone who has ever attacked
+  the creature or it's clan. 
+iftarget distance <= myinrange totalattackedcount > 0 myattackdelay = 0 clan != uglyorc~attack target()iftarget distance > myinrange totalattackedcount > 0 mymovedelay = 0 clan != uglyorc~move towards target
+
+
+eg 2)
+ This AI will move toward any enemy it sees, and if the enemy is 
+ out of visual range it will move back to position 12,12 on the map.
+iftarget distance <= myinrange totalattackedcount > 0 clan != uglyorc~attack target()iftarget distance > myinrange totalattackedcount > 0 mymovedelay = 0 clan != uglyorc~move towards target()ifmy myx > 12 mystate1 != 1~mystate1 set 1()ifmy myx < 12 mystate1 != -1~mystate1 set -1()ifmy myx = 12 mystate1 != 0~mystate1 set 0()ifmy myy > 12 mystate2 != 1~mystate2 set 1()ifmy myy < 12 mystate2 != -1~mystate2 set -1()ifmy myy = 12 mystate2 != 0~mystate2 set 0()ifmy mystate1 = 1~move left()ifmy mystate1 = -1~move right()ifmy mystate2 = 1~move up()ifmy mystate2 = -1~move down  
+
+eg2 With hard returns for ease of viewing:
+iftarget distance <= myinrange totalattackedcount > 0 clan != uglyorc~attack target()
+iftarget distance > myinrange totalattackedcount > 0 mymovedelay = 0 clan != uglyorc~move towards target()
+ifmy myx > 12 mystate1 != 1~mystate1 set 1()
+ifmy myx < 12 mystate1 != -1~mystate1 set -1()
+ifmy myx = 12 mystate1 != 0~mystate1 set 0()
+ifmy myy > 12 mystate2 != 1~mystate2 set 1()
+ifmy myy < 12 mystate2 != -1~mystate2 set -1()
+ifmy myy = 12 mystate2 != 0~mystate2 set 0()
+ifmy mystate1 = 1~move left()
+ifmy mystate1 = -1~move right()
+ifmy mystate2 = 1~move up()
+ifmy mystate2 = -1~move down  
+
+eg 3) Talking Orc
+  Use tell contains keyword and tell.  As a tip, if you use states you can return
+  multiple lines of conversation per input query.  See exaple 3 below.   Do not
+  use any , ~ ( ) in your conversation!!!  You can use - - or <> to accent words
+  for the user to type. (To assist them in following the conversation)
+  NOTE:  It is very difficult to talk to moving creatures.  I would say impossible!
+    If you want a user to talk to a creature, keep it still.
+  
+iftarget tell contains hi~tell Hi there!()
+iftarget tell contains job~tell I -waylay- strangers for a living... What do you do?()
+iftarget tell contains work~tell I -waylay- strangers for a living... What do you do?()
+iftarget tell contains adventur~tell I like adventures.()
+iftarget tell contains name tell contains my~tell that's a nice -name-. ()
+iftarget tell contains name tell contains your~var1 set 1~tell How nice! Very few people ask me about my name.()
+iftarget var1 = 1~var1 set 2~tell Most of these fellows just call me that talking orc!()
+iftarget var1 = 2~var1 set 0~var2 set 1~tell My real name is -Antonio Jerlanki-. What's your name?()
+iftarget tell contains name~tell Whose name?()
+iftarget tell contains antonio~tell It's not a very orcish name. I don't use it much.()
+iftarget tell contains jerlanki~tell It's not a very orcish name. I don't use it much.()
+iftarget tell contains waylay~tell It's crummy work but it's a living()
+iftarget var2 = 1 tell notcontains jerlanki~var2 set 0~tell That's a nice name()
+iftarget tell notcontains name~tell I don't know anything about that

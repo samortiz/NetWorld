@@ -1,0 +1,50 @@
+600
+sam
+test
+sam
+20
+12
+samplayer
+corpse
+618.0999999999062
+1000.0
+1000.0235008444815
+1000.0
+0.0
+2
+10
+30
+0
+0
+27.0
+11.0
+10.0
+10.0
+10.0
+0.0
+6.0
+0.0
+0.0
+0.0
+0.0
+0.0
+1.9
+10.0
+6.0
+0.0
+0.0
+0.0
+0.0
+(x=-1,y=-1,onMap=false,name=helmet,imageName=helmet,type=helmet,hitPoints=0.0,hitPointsMax=0.0,baseGoldValue=0.0,weight=2.0,range=0.0,attackdelay=0,use=(),lifetime=-1,charges=-1,durability=1.0,maxContains=0,contains=(),armorBludgeon=0.0,armorPierce=10.0,armorSlash=10.0,armorFire=0.0,armorIce=0.0,armorMagic=0.0,damageBludgeon=0.0,damagePierce=0.0,damageSlash=0.0,damageFire=0.0,damageIce=0.0,damageMagic=0.0)
+
+
+(x=-1,y=-1,onMap=false,name=blue armor,imageName=armor,type=breastplate,hitPoints=0.0,hitPointsMax=0.0,baseGoldValue=0.0,weight=25.0,range=0.0,attackdelay=0,use=(),lifetime=-1,charges=-1,durability=1.0,maxContains=0,contains=(),armorBludgeon=20.0,armorPierce=0.0,armorSlash=0.0,armorFire=0.0,armorIce=0.0,armorMagic=0.0,damageBludgeon=0.0,damagePierce=0.0,damageSlash=0.0,damageFire=0.0,damageIce=0.0,damageMagic=0.0)
+
+(x=-1,y=-1,onMap=false,name=spiked club,imageName=club,type=weapon,hitPoints=0.0,hitPointsMax=0.0,baseGoldValue=0.0,weight=10.0,range=1.9,attackdelay=10,use=(),lifetime=-1,charges=-1,durability=1.0,maxContains=0,contains=(),armorBludgeon=0.0,armorPierce=0.0,armorSlash=0.0,armorFire=0.0,armorIce=0.0,armorMagic=0.0,damageBludgeon=10.0,damagePierce=10.0,damageSlash=0.0,damageFire=0.0,damageIce=0.0,damageMagic=0.0)
+(x=-1,y=-1,onMap=false,name=big club,imageName=club,type=weapon,hitPoints=0.0,hitPointsMax=0.0,baseGoldValue=0.0,weight=0.0,range=1.8,attackdelay=0,use=(),lifetime=-1,charges=-1,durability=1.0,maxContains=0,contains=(),armorBludgeon=0.0,armorPierce=0.0,armorSlash=0.0,armorFire=0.0,armorIce=0.0,armorMagic=0.0,damageBludgeon=18.0,damagePierce=0.0,damageSlash=0.0,damageFire=0.0,damageIce=0.0,damageMagic=0.0)
+
+
+
+
+(x=-1,y=-1,onMap=false,name=heavy boots,imageName=boots,type=shoe,hitPoints=0.0,hitPointsMax=0.0,baseGoldValue=0.0,weight=10.0,range=0.0,attackdelay=0,use=(),lifetime=-1,charges=-1,durability=1.0,maxContains=0,contains=(),armorBludgeon=0.0,armorPierce=10.0,armorSlash=10.0,armorFire=0.0,armorIce=0.0,armorMagic=0.0,damageBludgeon=0.0,damagePierce=0.0,damageSlash=0.0,damageFire=0.0,damageIce=0.0,damageMagic=0.0)
+,,,,,,,,,,,,,,,,,,,,,,,,

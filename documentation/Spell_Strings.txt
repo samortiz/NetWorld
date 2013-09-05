@@ -1,0 +1,15 @@
+Spell Syntax
+
+ A spell string is of the form
+ Spell : name,lifetime,targetType,spellType,range,areaEffect,((Requirement)(Requirement)),((Effect)(Effect))
+ name : String
+ lifetime : long
+ targetType : creature, obj
+ range : double, how far away the target can be from the caster
+ areaEfect: double, all valid targetTypes/spellTypes in the area are effected by the spell
+ Requirement : creatureAttr number
+ Effect : [[createcreature|createobj] createString] || attr val attr val ... attr val]
+ attr : [c|t]Attribute (c=caster, t=target)
+ creatureAttr : only attributes of a creature
+ Attriubute: hp,hpmax,sp,spmax,str,dex,con,int,cha,movedelay,movedelaymax ...
+ val : number or attr

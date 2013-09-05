@@ -1,0 +1,3 @@
+(G,grass,fresh green grass,0)
+(D,grass,deep grass,5)
+(W,water,deep water,-1)
