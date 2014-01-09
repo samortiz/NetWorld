@@ -6,9 +6,8 @@ import java.util.TimerTask;
 
 public class gameServerThread extends Thread {
   private Socket socket = null;
-	private gameProtocol game = new gameProtocol();
-	private PrintWriter out;
-  private String screenRefresh = "";
+  private gameProtocol game = new gameProtocol();
+  private PrintWriter out;
   private String sendString = "";
   private boolean sendReady = false;
   private String messageString = null;

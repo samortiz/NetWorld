@@ -556,8 +556,6 @@ public class worldClass {
      FileReader mapDefs = new FileReader(new File(Constants.mapDefsFile));
      BufferedReader in = new BufferedReader(mapDefs);
      String thisLine = "INIT"; // just to make sure it enters the loop
-     int loopCounter = 0;
-     
      while (thisLine != null) {
        thisLine = in.readLine();
        // Parse the string of the form (fileChar,Img,name,move)
@@ -572,7 +570,6 @@ public class worldClass {
            int move = Integer.valueOf(thisLine.substring(thirdComma+1,(thisLine.length()-1))).intValue(); // from second , to )
            mapTypes.put(String.valueOf(fileChar), new mapElement(img, name, fileChar, move));
          } else System.out.println("Error reading Map Defs File error in line :"+thisLine);
-         loopCounter += 1;
        }
      }//while
      in.close();
@@ -925,7 +922,7 @@ public class worldClass {
  // the format is (obj1),(obj2),...(objn),\n  
   private String getPlayerObjInventory(int playerIndex) {
     String retVal = "";
-    for (int i=0; i< players[playerIndex].maxObj; i++) {
+    for (int i=0; i< Creature.maxObj; i++) {
       if (players[playerIndex].inventory[i] >= 0) {
         retVal += expandContains(obj[players[playerIndex].inventory[i]].toString());
       }
@@ -1122,7 +1119,7 @@ public class worldClass {
       for (int i=0; i<Constants.maxCreatures; i++) {
         if ((creatures[i].exists) && (creatures[i].alive) &&
             (creatures[i].x == x) && (creatures[i].y==y)) {
-           boolean nothing = leaveMessage("player",playerIndex, "creature",i,message);
+           leaveMessage("player",playerIndex, "creature",i,message);
            foundRecipient = true;
            retVal = "";
            break; // only deliver message to one creature
@@ -1339,7 +1336,6 @@ public class worldClass {
  // inStr is of the form ObjIndex~Location
  public String parseTarget(int playerIndex, String inStr) {
   String retVal = "";
-  boolean foundTarget = false;
   int tildaIndex = inStr.indexOf('~');
   if (tildaIndex > 0) {
     int objIndex = -1;
@@ -1632,7 +1628,7 @@ public class worldClass {
   public String getPlayerInventory(int playerIndex) {
     String retVal = "";
     if (playerIndex > -1) {
-      for (int i=0; i < players[playerIndex].maxObj; i++) {
+      for (int i=0; i < Creature.maxObj; i++) {
         int objIndex = players[playerIndex].inventory[i];
         if (objIndex > -1) retVal += obj[objIndex].imageName;
         else retVal += "noimage";
@@ -1876,7 +1872,7 @@ public class worldClass {
   // returns the index of the first available inventory slot (on the top level only)
   private int getFreeInvIndex(int playerIndex) {
     int retVal =  -1;
-    for (int i=0; i< players[playerIndex].maxObj; i++) {
+    for (int i=0; i< Creature.maxObj; i++) {
       if (players[playerIndex].inventory[i] < 0) {
         retVal = i;
         break; // return the first free slot
