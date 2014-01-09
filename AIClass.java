@@ -339,7 +339,7 @@ public class AIClass {
       int which = -1;
       try {which = Integer.valueOf(inStr.substring(7)).intValue();} catch (NumberFormatException e) {System.out.println("Invalid int for state: "+inStr);}
       if (which >= 0) retVal = state[which];
-    // As a last resort try to cast to a double, and if that failes hashCode the string to a double. (so the user can do string equality tests in cases like userName and clan)
+    // As a last resort try to cast to a double, and if that fails hashCode the string to a double. (so the user can do string equality tests in cases like userName and clan)
     } else try {retVal = Double.valueOf(inStr).doubleValue();} catch (NumberFormatException e) {retVal = (double)inStr.hashCode();}
    
    
