@@ -11,6 +11,9 @@ import java.util.TimerTask;
 
 public class gameClientApplet extends Applet implements KeyListener, MouseListener, MouseMotionListener {
 
+  // Random number, hopefully unique
+  private static final long serialVersionUID = 722839075759364150L;
+	
   // Connection Variables
   Socket gSocket = null;
   PrintWriter out = null;
@@ -142,7 +145,6 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
        // -------------- Draw the Objects sent in objStr -------------------
        String firstObjStr = "";
        String restObjStr = objStr;
-       int tempCounter = 10;
        Integer objX;
        Integer objY;
        String objName;
@@ -856,7 +858,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
 
 
   public void addKeyTotempStr(KeyEvent e) {
-    if (e.getKeyCode() == e.VK_BACK_SPACE) {
+    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
       if (tempStr.length() > 0) tempStr = tempStr.deleteCharAt(tempStr.length()-1);
     } else {
       if ((e.getKeyChar() != '~') && (e.getKeyChar() != ',') && (e.getKeyChar() != ')') && (e.getKeyChar() != '(')) {
@@ -1048,23 +1050,23 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
     String fromClient = "";
     int theCode = e.getKeyCode();
     fromClient = "INVALID"; // Clear Keypress
-    if ((theCode == e.VK_ESCAPE) && (loggedIn)) inputMode = "MOVE";
+    if ((theCode == KeyEvent.VK_ESCAPE) && (loggedIn)) inputMode = "MOVE";
     
     if (inputMode.equals("MOVE")) {
-      if (theCode == e.VK_UP)    fromClient = "MOVEUP";
-      else if (theCode == e.VK_DOWN)  fromClient = "MOVEDOWN";
-      else if (theCode == e.VK_LEFT)  fromClient = "MOVELEFT";
-      else if (theCode == e.VK_RIGHT) fromClient = "MOVERIGHT";
-      else if (theCode == e.VK_Q)    {fromClient = "QUIT"; serverListen.cancel();}
-      else if (theCode == e.VK_P)     fromClient = "GPOS";
-      else if (theCode == e.VK_T) { // Enter TELL Mode
+      if (theCode == KeyEvent.VK_UP)    fromClient = "MOVEUP";
+      else if (theCode == KeyEvent.VK_DOWN)  fromClient = "MOVEDOWN";
+      else if (theCode == KeyEvent.VK_LEFT)  fromClient = "MOVELEFT";
+      else if (theCode == KeyEvent.VK_RIGHT) fromClient = "MOVERIGHT";
+      else if (theCode == KeyEvent.VK_Q)    {fromClient = "QUIT"; serverListen.cancel();}
+      else if (theCode == KeyEvent.VK_P)     fromClient = "GPOS";
+      else if (theCode == KeyEvent.VK_T) { // Enter TELL Mode
         inputMode = "TELLWHO";
         addText("Tell Who : ");
         tellIndex = textIndex;
         tempStr = new StringBuffer("");
-      } else if (theCode == e.VK_G) { // Enter GET Mode
+      } else if (theCode == KeyEvent.VK_G) { // Enter GET Mode
         inputMode = "GET";
-      } else if (theCode == e.VK_E) { // Begin or End Displaying EQP (not an input mode)
+      } else if (theCode == KeyEvent.VK_E) { // Begin or End Displaying EQP (not an input mode)
         if (drawEqp == true) {
          fromClient = "EQUIPSTOP"; 
          drawEqp = false;
@@ -1072,7 +1074,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
          fromClient = "EQUIPSTART"; 
          drawEqp = true;
         }
-      } else if (theCode == e.VK_S) { // Begin or End Displaying Attributes (not an input mode)
+      } else if (theCode == KeyEvent.VK_S) { // Begin or End Displaying Attributes (not an input mode)
         if (drawAttr== true) {
           fromClient = "ATTRSTOP";
           drawAttr = false;
@@ -1080,16 +1082,16 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
          fromClient = "ATTRSTART"; 
          drawAttr = true;
         }
-      } else if (theCode == e.VK_A) { // Enter ATTACK Mode
+      } else if (theCode == KeyEvent.VK_A) { // Enter ATTACK Mode
         inputMode = "ATTACK";
         //addText("Press a direction key, or click on the creature to attack.");
-      } else if (theCode == e.VK_D) {
+      } else if (theCode == KeyEvent.VK_D) {
         if (displayAllText) {
           displayAllText= false; 
           drawBorders = true; // a border was erased while displayAllText was drawing
           drawText = true;
         } else displayAllText = true;
-      } else if (theCode == e.VK_F) { // Enter assign free Attributes Mode
+      } else if (theCode == KeyEvent.VK_F) { // Enter assign free Attributes Mode
         inputMode = "GETFREEATTRIBUTE";
         tempStr = new StringBuffer();
         addText("Assigning Free Attributes");
@@ -1099,7 +1101,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
       
       
     } else if (inputMode.equals("LOGINUSER")) {
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         inputMode = "LOGINPASSWORD";
         addText("Password : ");
         tempStr = tempStr.append('~');
@@ -1108,7 +1110,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
         modifyText("User Name : "+tempStr.toString());
       }
     } else if (inputMode.equals("LOGINPASSWORD")) {
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         inputMode = "MOVE";
         fromClient = "USER"+tempStr.toString();
       } else if (Character.isDefined(e.getKeyChar())) {
@@ -1118,7 +1120,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
       }
     } else if (inputMode.equals("LOGIN_NEW_USER_YN")) {
       if (Character.isDefined(e.getKeyChar())) {
-        if (theCode == e.VK_Y) {
+        if (theCode == KeyEvent.VK_Y) {
           inputMode = "NOINPUT";
           fromClient = "NEWU"+tempStr.toString();
         } else {
@@ -1129,22 +1131,22 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
       }
     // TELL 
     } else if (inputMode.equals("TELLWHO")) {
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         tellWhoStr = new StringBuffer("UN"+tempStr.toString()+"~"); // Start with UN if username typed in
         inputMode = "TELLWHAT"; 
         addText("Message : "); 
         tellIndex = textIndex; 
         tempStr = new StringBuffer(""); // clear the tempStr to hold the message
-      } else if (theCode == e.VK_UP) {tellWhoStr = new StringBuffer("UP~");   inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
-      else if (theCode == e.VK_DOWN) {tellWhoStr = new StringBuffer("DOWN~"); inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
-      else if (theCode == e.VK_LEFT) {tellWhoStr = new StringBuffer("LEFT~"); inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
-      else if (theCode == e.VK_RIGHT){tellWhoStr = new StringBuffer("RIGHT~");inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
+      } else if (theCode == KeyEvent.VK_UP) {tellWhoStr = new StringBuffer("UP~");   inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
+      else if (theCode == KeyEvent.VK_DOWN) {tellWhoStr = new StringBuffer("DOWN~"); inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
+      else if (theCode == KeyEvent.VK_LEFT) {tellWhoStr = new StringBuffer("LEFT~"); inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
+      else if (theCode == KeyEvent.VK_RIGHT){tellWhoStr = new StringBuffer("RIGHT~");inputMode = "TELLWHAT";addText("Message : "); tellIndex = textIndex; tempStr = new StringBuffer("");}
       else if (Character.isDefined(e.getKeyChar())) {
         addKeyTotempStr(e); // local method
         modifyText(tellIndex, "Tell Who : "+tempStr.toString());
       }
     } else if (inputMode.equals("TELLWHAT")) {
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         inputMode = "NEWTELLWHAT";
         fromClient = "TELL"+tellWhoStr.toString()+tempStr.toString(); 
         tempStr = new StringBuffer(""); // clear tempStr for the next message
@@ -1163,27 +1165,27 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
         inputMode = "MOVE";
       }
    } else if (inputMode.equals("GET")) {
-      if (theCode == e.VK_UP)    fromClient = "GETOUP";
-      if (theCode == e.VK_DOWN)  fromClient = "GETODOWN";
-      if (theCode == e.VK_LEFT)  fromClient = "GETOLEFT";
-      if (theCode == e.VK_RIGHT) fromClient = "GETORIGHT";
-      if (theCode == e.VK_G)     fromClient = "GETOHERE";
+      if (theCode == KeyEvent.VK_UP)    fromClient = "GETOUP";
+      if (theCode == KeyEvent.VK_DOWN)  fromClient = "GETODOWN";
+      if (theCode == KeyEvent.VK_LEFT)  fromClient = "GETOLEFT";
+      if (theCode == KeyEvent.VK_RIGHT) fromClient = "GETORIGHT";
+      if (theCode == KeyEvent.VK_G)     fromClient = "GETOHERE";
       inputMode = "MOVE";
     } else if (inputMode.equals("ATTACK")) {
-      if (theCode == e.VK_UP)    fromClient = "ATTKUP";
-      if (theCode == e.VK_DOWN)  fromClient = "ATTKDOWN";
-      if (theCode == e.VK_LEFT)  fromClient = "ATTKLEFT";
-      if (theCode == e.VK_RIGHT) fromClient = "ATTKRIGHT";
-      if (theCode == e.VK_A)     fromClient = "ATTKHERE";
+      if (theCode == KeyEvent.VK_UP)    fromClient = "ATTKUP";
+      if (theCode == KeyEvent.VK_DOWN)  fromClient = "ATTKDOWN";
+      if (theCode == KeyEvent.VK_LEFT)  fromClient = "ATTKLEFT";
+      if (theCode == KeyEvent.VK_RIGHT) fromClient = "ATTKRIGHT";
+      if (theCode == KeyEvent.VK_A)     fromClient = "ATTKHERE";
       inputMode = "MOVE";
     } else if (inputMode.equals("TARGET")) {
-      if (theCode == e.VK_UP)    fromClient = "TARG"+fromServerTARG+"~UP";
-      if (theCode == e.VK_DOWN)  fromClient = "TARG"+fromServerTARG+"~DOWN";
-      if (theCode == e.VK_LEFT)  fromClient = "TARG"+fromServerTARG+"~LEFT";
-      if (theCode == e.VK_RIGHT) fromClient = "TARG"+fromServerTARG+"~RIGHT";
+      if (theCode == KeyEvent.VK_UP)    fromClient = "TARG"+fromServerTARG+"~UP";
+      if (theCode == KeyEvent.VK_DOWN)  fromClient = "TARG"+fromServerTARG+"~DOWN";
+      if (theCode == KeyEvent.VK_LEFT)  fromClient = "TARG"+fromServerTARG+"~LEFT";
+      if (theCode == KeyEvent.VK_RIGHT) fromClient = "TARG"+fromServerTARG+"~RIGHT";
       inputMode = "MOVE";
     } else if (inputMode.equals("GETFREEATTRIBUTE")) {
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         attributeName = tempStr.toString();
         tempStr = new StringBuffer();
         inputMode = "GETFREEATTRIBUTEVALUE";
@@ -1195,7 +1197,7 @@ public class gameClientApplet extends Applet implements KeyListener, MouseListen
       }
     } else if (inputMode.equals("GETFREEATTRIBUTEVALUE")) {
       boolean validString = true;
-      if (theCode == e.VK_ENTER) {
+      if (theCode == KeyEvent.VK_ENTER) {
         try {
           attributeAmountAdded = Double.valueOf(tempStr.toString()).doubleValue();
         } catch (NumberFormatException ex) { 
